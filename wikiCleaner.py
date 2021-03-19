@@ -28,12 +28,12 @@ for title, text in iterate(r"..\lvwiki-latest-pages-articles.xml"):
     cleaned_text, _ = cleaner.build_links(text)
     cleaned_text_string += cleaned_text
     i += 1
-    if i%10000 == 0:
+    if i%1000 == 0:
         #lowercase the string
         cleaned_text_string = cleaned_text_string.lower()
 
         #perform all regex checks on it
-        for old, new in RE_replacements:
+        for old, new in RE_replacements: #RE_replacements_simple
             cleaned_text_string = re.sub(old, new, cleaned_text_string)
 
         #write it to file and reset
