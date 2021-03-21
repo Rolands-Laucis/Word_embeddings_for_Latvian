@@ -1,3 +1,5 @@
+#this script implements the fastText python library to create a word embeddings language model from my corpus
+
 #python FastTextModeler.py
 
 import fasttext

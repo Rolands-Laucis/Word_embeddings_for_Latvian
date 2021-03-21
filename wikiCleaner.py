@@ -1,3 +1,5 @@
+#this script cleans the lavian wikipedia data dump .xml file to a clean text file given my regex rules
+
 #python wikiCleaner.py
 
 from wiki_dump_reader import Cleaner, iterate
@@ -33,7 +35,7 @@ for title, text in iterate(r"..\lvwiki-latest-pages-articles.xml"):
         cleaned_text_string = cleaned_text_string.lower()
 
         #perform all regex checks on it
-        for old, new in RE_replacements: #RE_replacements_simple
+        for old, new in RE_replacements: #RE_replacements_simple works pretty much the same speed
             cleaned_text_string = re.sub(old, new, cleaned_text_string)
 
         #write it to file and reset
