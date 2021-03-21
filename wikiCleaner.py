@@ -1,4 +1,5 @@
 #this script cleans the lavian wikipedia data dump .xml file to a clean text file given my regex rules
+#https://dumps.wikimedia.org/lvwiki/latest/
 
 #python wikiCleaner.py
 

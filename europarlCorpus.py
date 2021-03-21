@@ -21,8 +21,13 @@ print("starting clean")
 with open(r"..\europarl-v7-lv.txt", "r", encoding="utf-8") as f:
     for line in f:
         i += 1
+
+        #for europarl:
+        line = re.sub('([A-ZĀČĒĢĪĶĻŅŠŪŽ]{2})+', '', line)
+        #gets rid of uppercase abreviations
+
         line = line.lower()
-        for old, new in RE_replacements:
+        for old, new in RE_replacements_europarl:
             line = re.sub(old, new, line)
 
         done_txt.write(line)
