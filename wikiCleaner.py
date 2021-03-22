@@ -32,6 +32,10 @@ for title, text in iterate(r"..\lvwiki-latest-pages-articles.xml"):
     cleaned_text_string += cleaned_text
     i += 1
     if i%1000 == 0:
+
+        #gets rid of uppercase abreviations
+        cleaned_text_string = re.sub('([A-ZĀČĒĢĪĶĻŅŠŪŽ]{2})+', '', cleaned_text_string)
+
         #lowercase the string
         cleaned_text_string = cleaned_text_string.lower()
 

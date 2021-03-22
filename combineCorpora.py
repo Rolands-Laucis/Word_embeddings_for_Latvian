@@ -10,7 +10,7 @@ done_txt.write("")
 done_txt.close()
 print("Cleared file")
 
-done_txt = open(r"..\cleaned_europarl_lv.txt", "a", encoding="utf-8")
+done_txt = open(r"..\combined_clean_corpus.txt", "a", encoding="utf-8")
 
 print("starting clean")
 

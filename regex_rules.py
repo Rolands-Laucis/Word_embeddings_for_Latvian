@@ -1,6 +1,7 @@
 RE_replacements = [
     #(r'[-—\[\]\(\)=,;’‘\'\"]', ' '), #replace those symbols with space
-    (r'[^aābcčdeēfgģhiījkķlļmnņoprsštuūvzž\.0123456789]', ' '),
+    (r'\(.+\)', ''), #replace any text in parenthesis () including them as well with empty
+    (r'[^aābcčdeēfgģhiījkķlļmnņoprsštuūvzž\.0123456789\r\n]', ' '),
     #(r'\d+', '0'), #replace a string of 1 or more digits with 0
     (r'\d+\.?', '0'), #replace a string of 1 or more digits with or without a . to 0
     #(r'\s\w[\.]+', ' '), #aizvietot abriviatūras ar space. Broken
