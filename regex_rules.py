@@ -1,12 +1,12 @@
 RE_replacements = [
     #(r'[-—\[\]\(\)=,;’‘\'\"]', ' '), #replace those symbols with space
     (r'\(.+\)', ''), #replace any text in parenthesis () including them as well with empty
-    (r'[^aābcčdeēfgģhiījkķlļmnņoprsštuūvzž\.0123456789\r\n]', ' '),
+    (r'[^aābcčdeēfgģhiījkķlļmnņoprsštuūvzž\.0123456789\r\n\s°]', ' '),
     #(r'\d+', '0'), #replace a string of 1 or more digits with 0
     (r'\d+\.?', '0'), #replace a string of 1 or more digits with or without a . to 0
     #(r'\s\w[\.]+', ' '), #aizvietot abriviatūras ar space. Broken
     (r'\s\s+', ' '), #replace a string of 1 or more spaces with space
-    (r'\w*\d\w*', '0'), #replace weird m0 l0 m0 m0 m0 l0aa teksts
+    (r'\w*\d+\w*', '0'), #replace weird m0 l0 m0 m0 m0 l0aa teksts
     (r'(0[\s]?)+', '0 '), #replace 0 0 0 0 0 0 and 0000 with just 1 0
     (r'apg\.', 'apgāds'),
     (r'apm\.', 'apmēram'),
@@ -93,9 +93,10 @@ RE_replacements = [
     (r'\s\w\.\s', ' ') #remove uzv saīsin
 ]
 
+#deprecated
 RE_replacements_simple = [
     #(r'[-—\[\]\(\)=,;’‘\'\"]', ' '), #replace those symbols with space
-    (r'[^aābcčdeēfgģhiījkķlļmnņoprsštuūvzž\.0123456789]', ' '),
+    (r'[^aābcčdeēfgģhiījkķlļmnņoprsštuūvzž\.0123456789\r\n\s°]', ' '),
     #(r'\d+', '0'), #replace a string of 1 or more digits with 0
     (r'\d+\.?', '0'), #replace a string of 1 or more digits with or without a . to 0
     #(r'\s\w[\.]+', ' '), #aizvietot abriviatūras ar space. Broken
@@ -105,10 +106,11 @@ RE_replacements_simple = [
     (r'\s\w\.\s', ' ') #remove uzv saīsin
 ]
 
+#deprecated
 RE_replacements_europarl = [
     #(r'([\r\n]+|[\r]+|[\n]+)', ''), #replace all line endings with a single line ending. Broken
     (r'\(.+\)', ''), #replace any text in parenthesis () including them as well with empty
-    (r'[^aābcčdeēfgģhiījkķlļmnņoprsštuūvzž\.0123456789\r\n]', ' '),
+    (r'[^aābcčdeēfgģhiījkķlļmnņoprsštuūvzž\.0123456789\r\n\s°]', ' '),
     (r'\d+\.?', '0'), #replace a string of 1 or more digits with or without a . to 0
     (r'\s\s+', ' '), #replace a string of 1 or more spaces with space
     (r'\w*\d\w*', '0'), #replace weird m0 l0 m0 m0 m0 l0aa teksts

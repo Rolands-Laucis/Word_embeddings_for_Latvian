@@ -3,7 +3,7 @@
 
 #python europarlCorpus.py
 
-from regex_rules import *
+from regex_rules import RE_replacements
 import re
 
 i = 0
@@ -27,7 +27,7 @@ with open(r"..\europarl-v7-lv.txt", "r", encoding="utf-8") as f:
         #gets rid of uppercase abreviations
 
         line = line.lower()
-        for old, new in RE_replacements_europarl:
+        for old, new in RE_replacements:
             line = re.sub(old, new, line)
 
         done_txt.write(line)

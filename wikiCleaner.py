@@ -5,7 +5,7 @@
 
 from wiki_dump_reader import Cleaner, iterate
 import re
-from regex_rules import *
+from regex_rules import RE_replacements
 #import importlib
 #import os
 #path_to_lvwiki = os.path.join('C:', os.sep, 'meshes', 'as')
