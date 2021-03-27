@@ -8,6 +8,8 @@ import sys
 import csv
 from ufal.udpipe import Model, Pipeline, ProcessingError # pylint: disable=no-name-in-module
 
+i = 0
+
 #load language model - LVTB model
 print('Loading model...')
 model = Model.load(r'../Models/UDPipe_model/latvian-lvtb-ud-2.5-191206.udpipe')
@@ -27,7 +29,7 @@ done_txt = open(r"../Cleaned_Corpora/combined_clean_lemmatized_corpus.txt", "w",
 done_txt.write("")
 done_txt.close()
 print("Cleared file")
-done_txt = open(r"..\combined_clean_lemmatized_corpus.txt", "a", encoding="utf-8")
+done_txt = open(r"../Cleaned_Corpora/combined_clean_lemmatized_corpus.txt", "a", encoding="utf-8")
 
 #iterate over corpus lines and save lemmas in output file
 with open('../Cleaned_Corpora/combined_clean_corpus.txt', 'r', encoding='utf-8') as f:
@@ -37,6 +39,7 @@ with open('../Cleaned_Corpora/combined_clean_corpus.txt', 'r', encoding='utf-8')
         #error handling
         if error.occurred():
             print("An error occured: %s" % error.message)
+            sys.exit(1)
         else:
             #for proccessing 'conllu' output format stuff (Kinda looks like a csv file, but i manually parse it):
             lemmatized_line = ''
@@ -47,6 +50,9 @@ with open('../Cleaned_Corpora/combined_clean_corpus.txt', 'r', encoding='utf-8')
             #print(processed)
             #print(processed.split())
             done_txt.write(lemmatized_line)
+            i += 1
+            if i%10000 == 0:
+                print("processed %d lines of text" % i)
         
 #close working open file
 done_txt.close()
