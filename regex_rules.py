@@ -90,7 +90,8 @@ RE_replacements = [
     (r'var\.', 'variants'),
     (r'vsk\.', 'vienskaitlis'),
     (r'v\.\s?tml\.', 'vai tamlīdzīgi'),
-    (r'\s\w\.\s', ' ') #remove uzv saīsin
+    (r'\s\w\.\s', ' '), #remove uzv saīsin
+    (r'\.', '') #remove periods
 ]
 
 #deprecated

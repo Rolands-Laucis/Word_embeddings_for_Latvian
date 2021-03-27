@@ -16,8 +16,8 @@ def WorkWithModel(model_name):
         txt = input("ievadi vardu: ")
         print(model.get_nearest_neighbors(txt))
 
-Train('skipgram')
-#WorkWithModel('../FastText_lvwiki_model.bin')
+#Train('skipgram')
+WorkWithModel('../FastText_lvwiki_model.bin')
 
 
 print ("Done!")
