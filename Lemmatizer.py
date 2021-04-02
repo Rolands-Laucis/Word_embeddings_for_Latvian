@@ -5,7 +5,6 @@
 #python lemmatizer.py
 
 import sys
-import csv
 from ufal.udpipe import Model, Pipeline, ProcessingError # pylint: disable=no-name-in-module
 
 i = 0

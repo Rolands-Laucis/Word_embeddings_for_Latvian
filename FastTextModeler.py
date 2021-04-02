@@ -1,4 +1,4 @@
-#this script implements the fastText python library to create a word embeddings language model from my corpus
+#this script implements the fastText python library to create a word embeddings language model from my corpus using FastText method.
 
 #python FastTextModeler.py
 
