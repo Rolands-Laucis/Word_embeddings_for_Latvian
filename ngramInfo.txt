@@ -1,0 +1,17 @@
+Corpus2vocab
+30M tokens processed.
+Number of tokens: 30415316
+Size of vocabulary: 47237
+Low-frequency threshold: 100
+Corpus2vocab finished
+
+Corpus2pairs
+Vocabulary size: 47237
+1145K lines processed.
+Corpus2pairs finished
+
+Pairs2vocab
+2M pairs processed.Input vocab size: 25713
+Output vocab size: 47152
+Pairs2vocab finished
+
