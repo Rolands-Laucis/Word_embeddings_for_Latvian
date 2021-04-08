@@ -1,4 +1,10 @@
+::./analogyEval.bat
+
 @echo off
+
+echo doing word2vec analogy evaluations with gensim evaluation
+python AnalogiesTester.py --model_type word2vec --model_file ../Models/Word2vec_model/word2vec.wordvectors --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/results_word2vec_gensim.txt --gen_output true --eval_method gensim
+exit 0
 echo doing word2vec analogy evaluations
 python AnalogiesTester.py --model_type word2vec --model_file ../Models/Word2vec_model/word2vec.wordvectors --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/results_word2vec_3cosmul_top10.txt --gen_output true --eval_method 3cosmul --topn 10
 python AnalogiesTester.py --model_type word2vec --model_file ../Models/Word2vec_model/word2vec.wordvectors --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/results_word2vec_3cosmul.txt --gen_output true --eval_method 3cosmul --topn 1

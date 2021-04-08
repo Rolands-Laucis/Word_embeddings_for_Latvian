@@ -65,7 +65,7 @@ def main():
     #output evaluation results
     if args.gen_output:
         output = open(args.output_file, "a", encoding='utf-8')
-        output.write("%1.2f,%s,%s,%d,%r\n" % (score*100, args.model_type, args.eval_method, args.topn, args.dummy4unknown))
+        output.write("%1.6f,%s,%s,%d,%r\n" % (score*100, args.model_type, args.eval_method, args.topn, args.dummy4unknown))
         #output.write("Dataset evaluated with score: %1.6f%% and parameters %s %s %d %r \n incorrect guesses: \n" % (score*100, args.model_type, args.eval_method, args.topn, args.dummy4unknown))
 
         if False:

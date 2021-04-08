@@ -1,18 +1,36 @@
 #this script implements the Gensim python library to create a word embeddings language model from my corpus using Word2Vec Skip-Gram method
 
-#python word2vecModeler.py
+#python word2vecModeler.py --corpus_file ../Cleaned_Corpora/combined_clean_corpus.txt --window 5 --vector_size 200 --method sg
 
+import argparse
 from gensim.models import Word2Vec
-#from gensim.models.word2vec import LineSentence
 
-corpus_path = "../Cleaned_Corpora/combined_clean_corpus.txt"
+def main():
+    #CLI arguments
+    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument("--corpus_file", type=str, required=True, help="Path to the corpus .txt file.")
+    parser.add_argument("--window", type=int, default=5, help="Window size. default=5")
+    parser.add_argument("--vector_size", type=int, default=200, help="Vector dimensions. default=200")
+    parser.add_argument("--min_count", type=int, default=1, help="The model ignores all words with total frequency lower than this. default=1")
+    parser.add_argument("--method", type=str, required=True, help="[sg|cbow]")
+    parser.add_argument("--output_file", type=str, default=r'..\Models\Word2vec_model\word2vec.wordvectors', help="Path to the output .wordvectors file.")
+    args = parser.parse_args()
 
-print('Starting Skip-Gram training on %s' % corpus_path)
-model = Word2Vec(corpus_file=corpus_path, vector_size=200, window=5, workers=2, sg=1)
-print('Skip-Gram model done!')
+    #set method
+    method = 1
+    if args.method == "sg":
+        method = 1
+    elif args.method == "cbow":
+        method = 0
+    else:
+        print("method not supported!")
+        return
 
-#model = Word2Vec.load("..\Models\Word2vec_model\word2vec.model")
+    #train
+    print('Starting %s training on %s' % (args.method, args.corpus_file))
+    model = Word2Vec(corpus_file=args.corpus_file, vector_size=args.vector_size, window=args.window, workers=2, sg=method, min_count=args.min_count)
+    model.wv.save(args.output_file)
+    print('Done trainig word2vec!')
 
-model.save("..\Models\Word2vec_model\word2vec.model")
-print('Model saved!')
-print('Done!')
+if __name__ == '__main__':
+    main()
