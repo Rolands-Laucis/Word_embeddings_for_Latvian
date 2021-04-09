@@ -31,9 +31,11 @@ def main():
 
     #model loading
     #model = Word2Vec.load(args.model_file)
+    #word_vectors = KeyedVectors.load_word2vec_format(args.model_file,binary=False, encoding='utf8')
     #word_vectors = model.wv
     #del model
-    #word_vectors.save("../Models/Word2vec_model/word2vec.wordvectors")
+    #word_vectors.save("../Models/FastText_model/fasttext_oficial_lv_300.wordvectors")
+    #return
     if args.model_type == "word2vec":
         word_vectors = KeyedVectors.load(args.model_file, mmap='r')
     elif args.model_type == "fasttext":

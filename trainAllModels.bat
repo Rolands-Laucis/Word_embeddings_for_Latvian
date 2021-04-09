@@ -13,7 +13,6 @@ echo ngram2vec not supported
 
 echo training ssg...
 cd ..\wang2vec_repo\wang2vec-master 
-bash
 ./word2vec -train ../../Cleaned_Corpora/combined_clean_corpus.txt -output ../../Models/SSG_model/ssg_5_250_sg.txt -type 3 -size 200 -window 3 -binary 0
 
 echo done training models
