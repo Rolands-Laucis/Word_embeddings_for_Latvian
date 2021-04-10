@@ -1,0 +1,8 @@
+{
+    "numpy":"pip install numpy",
+    "scipy":"pip install numpy",
+    "ufal.udpipe":"pip install ufal.udpipe",
+    "wiki_dump_reader":"pip install wiki_dump_reader",
+    "gensim":"pip install gensim",
+    "fasttext":"pip install fasttext"
+}
