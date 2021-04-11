@@ -22,6 +22,8 @@ echo training ssg lemmatized...
 word2vec -train ../Cleaned_Corpora/combined_clean_corpus_lem.txt -output ../Models/SSG_model/ssg_%win%_%v_size%_sg_lem.txt -type 3 -size %v_size% -window %win% -binary 0
 
 echo training ngram2vec...
-echo ngram2vec not supported
+cd ..\ngram2vec-master
+bash
+ngram_example.sh %win% %v_size%
 
 echo done training models
