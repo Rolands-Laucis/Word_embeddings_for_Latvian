@@ -44,7 +44,7 @@ def main():
         
         #this loads gensim FastText generated .wordvectors file
         word_vectors = KeyedVectors.load(args.model_file, mmap='r')
-    elif args.model_type == "ssg":
+    elif args.model_type == "ssg" or args.model_type == "ngram2vec":
         word_vectors = KeyedVectors.load_word2vec_format(args.model_file, binary=False)
     else:
         print("model_type not supported!")
@@ -68,6 +68,10 @@ def main():
     if args.gen_output:
         output = open(args.output_file, "a", encoding='utf-8')
         output.write("%1.6f,%s,%s,%d,%r\n" % (score*100, args.model_type, args.eval_method, args.topn, args.dummy4unknown))
+        if args.eval_method == "3cosmul" or args.eval_method == "3cosadd":
+            for key, value in sections.items():
+                #print("%s,%1.6f\n" % (key, value))
+                output.write("%s,%1.6f\n" % (key, value))
         #output.write("Dataset evaluated with score: %1.6f%% and parameters %s %s %d %r \n incorrect guesses: \n" % (score*100, args.model_type, args.eval_method, args.topn, args.dummy4unknown))
 
         if False:
@@ -91,15 +95,28 @@ def main():
 
 #evaluates a analogy dataset .txt file and returns a score (0-1) of how many were answered correctly
 def AnalogyEval(file, word_vectors, method, top, dummy4unknown):
-    words_proccessed = 0
-    correct_answers = []
-    incorrect_answers = []
+    analogies_proccessed = 0
+    correct_answers = 0
+    correct_in_category = 0
+    analogies_in_category = 0
+
+    section_name = ""
+    sections = {}
 
     #go through analogies file line by line and check the 4 word analogy evaluation
     with open(file, 'r', encoding='utf-8') as f:
             for line in f:
-                words = lowercaseWords(line.split()) #get all 4 words from line
-                if (":" in words) or (len(words) != 4): #if this line describes a new category, not 4 words of analogies
+                words = [x.lower() for x in line.split()] #get all 4 words from line
+                if (":" in words): #if this line describes a new category, not 4 words of analogies
+                    if section_name == "":
+                        section_name = words[1]
+                        #section_name = " ".join(words)
+                    else:
+                        sections[section_name] = correct_in_category/analogies_in_category
+                        correct_in_category = 0
+                        analogies_in_category = 0
+                        section_name = words[1]
+                        #section_name = "_".join(words)
                     continue
 
                 #check if all required words are in vocabulary - dummy4unknown
@@ -127,24 +144,20 @@ def AnalogyEval(file, word_vectors, method, top, dummy4unknown):
                 
                 #count score
                 if words[3] in dict(answer):
-                    correct_answers.append(words)
-                else:
-                    incorrect_answers.append(words)
-                words_proccessed += 1
+                    correct_answers += 1
+                    correct_in_category += 1
+                analogies_proccessed += 1
+                analogies_in_category += 1
 
                 #status update and/or break condition
-                if words_proccessed%100 == 0:
-                    print("processed %d lines of analogies" % words_proccessed)
+                if analogies_proccessed%100 == 0:
+                    print("processed %d lines of analogies" % analogies_proccessed)
                     #print(words)
                     #print(dict(answer))
                     #break
-    return (len(correct_answers)/words_proccessed), {"correct":correct_answers, "incorrect":incorrect_answers}
 
-def lowercaseWords(words):
-    w = []
-    for word in words:
-        w.append(word.lower())
-    return w
+    sections[section_name] = correct_in_category/analogies_in_category
+    return (correct_answers/analogies_proccessed), sections
 
 if __name__ == '__main__':
     main()

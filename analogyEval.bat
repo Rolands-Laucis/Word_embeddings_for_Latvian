@@ -6,6 +6,9 @@ set win=%1
 set v_size=%2
 set eval_method=%3
 
+::pause
+::exit 0
+
 echo doing word2vec analogy evaluations
 python AnalogiesTester.py --model_type word2vec --model_file ../Models/Word2vec_model/word2vec_%win%_%v_size%_sg.wordvectors --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/results_word2vec_%win%_%v_size%_%eval_method%_top10.txt --gen_output true --eval_method %eval_method% --topn 10 --verbose true
 python AnalogiesTester.py --model_type word2vec --model_file ../Models/Word2vec_model/word2vec_%win%_%v_size%_sg.wordvectors --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/results_word2vec_%win%_%v_size%_%eval_method%.txt --gen_output true --eval_method %eval_method% --topn 1
@@ -20,6 +23,10 @@ python AnalogiesTester.py --model_type fasttext --model_file ../Models/FastText_
 echo doing SSG analogy evaluations
 python AnalogiesTester.py --model_type ssg --model_file ../Models/SSG_model/ssg_%win%_%v_size%_sg.txt --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/results_ssg_%win%_%v_size%_%eval_method%_top10.txt --gen_output true --eval_method %eval_method% --topn 10
 python AnalogiesTester.py --model_type ssg --model_file ../Models/SSG_model/ssg_%win%_%v_size%_sg.txt --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/results_ssg_%win%_%v_size%_%eval_method%.txt --gen_output true --eval_method %eval_method% --topn 1
+
+echo doing ngram2vec analogy evaluations
+python AnalogiesTester.py --model_type ngram2vec --model_file ../ngram2vec-master/outputs/combined_clean_corpus/ngram_ngram/sgns/ng2v_%win%_%v_size%_sg.output --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/results_ng2v_%win%_%v_size%_%eval_method%_top10.txt --gen_output true --eval_method %eval_method% --topn 10
+python AnalogiesTester.py --model_type ngram2vec --model_file ../ngram2vec-master/outputs/combined_clean_corpus/ngram_ngram/sgns/ng2v_%win%_%v_size%_sg.output --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/results_ng2v_%win%_%v_size%_%eval_method%.txt --gen_output true --eval_method %eval_method% --topn 1
 
 echo analogy evaluations done
 pause
