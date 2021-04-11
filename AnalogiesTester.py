@@ -112,7 +112,7 @@ def AnalogyEval(file, word_vectors, method, top, dummy4unknown):
                         section_name = words[1]
                         #section_name = " ".join(words)
                     else:
-                        sections[section_name] = correct_in_category/analogies_in_category
+                        sections[section_name] = (correct_in_category/analogies_in_category) * 100
                         correct_in_category = 0
                         analogies_in_category = 0
                         section_name = words[1]
@@ -156,7 +156,7 @@ def AnalogyEval(file, word_vectors, method, top, dummy4unknown):
                     #print(dict(answer))
                     #break
 
-    sections[section_name] = correct_in_category/analogies_in_category
+    sections[section_name] = (correct_in_category/analogies_in_category) * 100
     return (correct_answers/analogies_proccessed), sections
 
 if __name__ == '__main__':
