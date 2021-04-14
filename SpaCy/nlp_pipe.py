@@ -8,5 +8,29 @@
 #i converted all 3 (train, dev, test) .conllu files this way from https://github.com/UniversalDependencies/UD_Latvian-LVTB
 #python -m spacy convert lv_lvtb-ud-test.conllu .\ --converter conllu
 
+#To insert my word embeddings into spaCy, covert them to .spacy format:
+#python -m spacy init vectors lv ../../Models/SSG_model/ssg_5_200_sg.txt ../../Models/Spacy_tagger/vectors --name lv-ssg-5-200
+
+#Then in the config.cfg under [Initialize] set vectors = ^ that path where it output without ""
+
 #Train the custom model to use in the spaCy nlp pipeline for tagging later.
-#python -m spacy train config.cfg --output ./ --paths.train ./lv_lvtb-ud-train.spacy --paths.dev ./lv_lvtb-ud-dev.spacy
+#python -m spacy train config.cfg --output ../../Models/Spacy_tagger/ssg_5_200_pos --paths.train ./lv_lvtb-ud-train.spacy --paths.dev ./lv_lvtb-ud-dev.spacy
+
+#Then run this script to do a POS tag
+#python nlp_pipe.py
+
+#from thinc.api import Config
+#from spacy.language import Language
+import spacy
+
+#config = Config().from_disk("../../Models/Spacy_tagger/config.cfg")
+nlp = spacy.load("../../Models/Spacy_tagger/ssg_5_200_pos/model-last/")
+#nlp = Language.from_config(config)
+
+doc = nlp("Es pārbaudu kā strādā šis kods.")
+
+print(nlp.pipeline)
+
+for token in doc:
+    #print(token.text, token.pos)
+    print(token.text, token.pos_)
