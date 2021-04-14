@@ -117,12 +117,7 @@ def AnalogyEval(file, word_vectors, method, top, dummy4unknown, verbose):
             #check if all required words are in vocabulary - dummy4unknown
             if dummy4unknown:
                 skip_line = False
-                for n in range(0,3):
-                    #try:
-                    #    word_vectors.get_vector(words[n])
-                    #except:
-                    #    skip_line = True
-                    #    break
+                for n in range(0,2):
                     if word_vectors.has_index_for(words[n]) == False:
                         skip_line = True
                         break
@@ -145,12 +140,12 @@ def AnalogyEval(file, word_vectors, method, top, dummy4unknown, verbose):
             analogies_in_category += 1
 
             #status update and/or break condition
-            if analogies_proccessed%100 == 0:
-                if verbose:
+            if verbose:
+                if analogies_proccessed%100 == 0:
                     print("processed %d lines of analogies" % analogies_proccessed)
-                #print(words)
-                #print(dict(answer))
-                #break
+                    #print(words)
+                    #print(dict(answer))
+                    #break
     if analogies_in_category != 0:
         sections[section_name] = (correct_in_category/analogies_in_category) * 100
     return (correct_answers/analogies_proccessed), sections

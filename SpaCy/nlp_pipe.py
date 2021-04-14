@@ -23,11 +23,8 @@
 #from spacy.language import Language
 import spacy
 
-#config = Config().from_disk("../../Models/Spacy_tagger/config.cfg")
 nlp = spacy.load("../../Models/Spacy_tagger/ssg_5_200_pos/model-last/")
-#nlp = Language.from_config(config)
-
-doc = nlp("Es pārbaudu kā strādā šis kods.")
+doc = nlp("astronomija uzbūvi izvietojumu kustību un attīstību.")
 
 print(nlp.pipeline)
 
