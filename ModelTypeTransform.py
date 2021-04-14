@@ -2,7 +2,7 @@
 #python ModelTypeTransform.py --input_file_type vec --input_file ..\tf-morphotagger-master\embeddings\fasttext_baseline_300.vec --output_file_type wordvectors --output_file ..\Models\FastText_model\fasttext_baseline_300.wordvectors
 
 import argparse
-import fasttext
+#import fasttext
 from gensim.models import Word2Vec, KeyedVectors
 
 def main():
