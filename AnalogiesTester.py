@@ -1,6 +1,6 @@
 #This script tests generated word embedding model (word vector space) accuracy on a Latvian analogy data set
 
-#python AnalogiesTester.py --model_type word2vec --model_file ../Models/Word2vec_model/word2vec.wordvectors --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/results_word2vec_3cosmul.txt --gen_output true --eval_method 3cosmul --topn 10 --verbose true
+#python AnalogiesTester.py --model_type word2vec --model_file ../Models/Word2vec_model/word2vec_5_200_sg_lem.wordvectors --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/results_word2vec_5_200_3cosmul_top10_lem.txt --gen_output true --eval_method 3cosmul --topn 10
 #python AnalogiesTester.py --model_type fasttext --model_file ..\tf-morphotagger-master\embeddings\fasttext_baseline_300.vec --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/results_fasttext.txt --gen_output true
 #python AnalogiesTester.py --model_type ssg --model_file ../Models/SSG_model/ssg_model.txt --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/results_ssg.txt --gen_output true
 
@@ -17,7 +17,7 @@ def main():
     parser.add_argument("--topn", type=int, default=1, help="Answer accepted, if in topn results from similarity check. Default 1.")
     parser.add_argument("--dummy4unknown", type=bool, default=True, help="Should the analogy line be skipped, if not all words in vocabulary? Default True.")
     parser.add_argument("--verbose", type=bool, default=False, help="Should the program give status updates? Default False.")
-    parser.add_argument("--gen_output", type=bool, default=False, help="Should the output file with score and incorrect guesses be generated. Default False.")
+    parser.add_argument("--gen_output", type=bool, default=True, help="Should the output file with score and incorrect guesses be generated. Default True.")
     parser.add_argument("--output_file", type=str, default=r'../datasets/results.txt', help="Path to the output txt file.")
     args = parser.parse_args()
 
@@ -52,7 +52,7 @@ def main():
     if args.eval_method == "gensim":
         score, sections = word_vectors.evaluate_word_analogies(args.dataset_file, case_insensitive=True, dummy4unknown=args.dummy4unknown)
     elif args.eval_method == "3cosmul" or args.eval_method == "3cosadd":
-        score, sections = AnalogyEval(args.dataset_file, word_vectors, args.eval_method, args.topn, args.dummy4unknown)
+        score, sections = AnalogyEval(args.dataset_file, word_vectors, args.eval_method, args.topn, args.dummy4unknown, args.verbose)
     else:
         print("eval_method not supported!")
         return
@@ -88,7 +88,7 @@ def main():
 
 
 #evaluates a analogy dataset .txt file and returns a score (0-1) of how many were answered correctly and scores per section
-def AnalogyEval(file, word_vectors, method, top, dummy4unknown):
+def AnalogyEval(file, word_vectors, method, top, dummy4unknown, verbose):
     analogies_proccessed = 0
     correct_answers = 0
     correct_in_category = 0
@@ -106,7 +106,8 @@ def AnalogyEval(file, word_vectors, method, top, dummy4unknown):
                     section_name = words[1]
                     #section_name = " ".join(words)
                 else:
-                    sections[section_name] = (correct_in_category/analogies_in_category) * 100
+                    if analogies_in_category != 0:
+                        sections[section_name] = (correct_in_category/analogies_in_category) * 100
                     correct_in_category = 0
                     analogies_in_category = 0
                     section_name = words[1]
@@ -145,12 +146,13 @@ def AnalogyEval(file, word_vectors, method, top, dummy4unknown):
 
             #status update and/or break condition
             if analogies_proccessed%100 == 0:
-                print("processed %d lines of analogies" % analogies_proccessed)
+                if verbose:
+                    print("processed %d lines of analogies" % analogies_proccessed)
                 #print(words)
                 #print(dict(answer))
                 #break
-
-    sections[section_name] = (correct_in_category/analogies_in_category) * 100
+    if analogies_in_category != 0:
+        sections[section_name] = (correct_in_category/analogies_in_category) * 100
     return (correct_answers/analogies_proccessed), sections
 
 if __name__ == '__main__':

@@ -20,7 +20,7 @@ cd ..\wang2vec-master
 ::word2vec -train ../Cleaned_Corpora/combined_clean_corpus.txt -output ../Models/SSG_model/ssg_%win%_%v_size%_sg.txt -type 3 -size %v_size% -window %win% -binary 0
 ::echo training ssg lemmatized...
 ::word2vec -train ../Cleaned_Corpora/combined_clean_corpus_lem.txt -output ../Models/SSG_model/ssg_%win%_%v_size%_sg_lem.txt -type 3 -size %v_size% -window %win% -binary 0
-exit 0
+
 echo training ngram2vec...
 echo ngram2vec should be done seperately
 ::cd ..\ngram2vec-master
