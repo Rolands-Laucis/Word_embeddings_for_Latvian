@@ -22,12 +22,28 @@
 #from thinc.api import Config
 #from spacy.language import Language
 import spacy
+from spacy import util
+from thinc.api import Config
+from spacy.language import Language
+from spacy.lang.lv import Latvian
+from spacy.vocab import Vocab
 
-nlp = spacy.load("../../Models/Spacy_tagger/ssg_5_200_pos/model-last/")
+#nlp = spacy.load("../../Models/Spacy_tagger/ssg_5_200_pos/model-last/")
+config = Config().from_disk("../../Models/Spacy_tagger/ssg_5_200_pos/model-last/config.cfg")
+#nlp = Latvian()
+#language = spacy.blank("lv")
+#nlp = util.load_model_from_config(config)
+voc = Vocab(vectors_name="./vocab/vectors")
+nlp = Latvian.from_config(config, vocab=voc)
+#nlp = language.from_disk("../../Models/Spacy_tagger/ssg_5_200_pos/model-last/")
+#nlp.from_disk("../../Models/Spacy_tagger/ssg_5_200_pos/model-last/")
+
+#nlp.initialize(Vocab(vectors_name="./vocab/vectors"))
 doc = nlp("astronomija uzbūvi izvietojumu kustību un attīstību.")
 
 print(nlp.pipeline)
 
-for token in doc:
+
+#for token in doc:
     #print(token.text, token.pos)
-    print(token.text, token.pos_)
+#    print(token.text, token.pos_)

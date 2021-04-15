@@ -15,7 +15,7 @@ def main():
     parser.add_argument("--dataset_file", type=str, required=True, help="Path to the dataset txt file.")
     parser.add_argument("--eval_method", type=str, required=True, help="[gensim|3cosmul|3cosadd]")
     parser.add_argument("--topn", type=int, default=1, help="Answer accepted, if in topn results from similarity check. Default 1.")
-    parser.add_argument("--dummy4unknown", type=bool, default=True, help="Should the analogy line be skipped, if not all words in vocabulary? Default True.")
+    parser.add_argument("--dummy4unknown", type=bool, default=False, help="Should the analogy line be skipped, if not all words in vocabulary? Default False.")
     parser.add_argument("--verbose", type=bool, default=False, help="Should the program give status updates? Default False.")
     parser.add_argument("--gen_output", type=bool, default=True, help="Should the output file with score and incorrect guesses be generated. Default True.")
     parser.add_argument("--output_file", type=str, default=r'../datasets/results.txt', help="Path to the output txt file.")
@@ -31,13 +31,13 @@ def main():
 
     #load model as a Wordvectors object
     if args.model_type == "word2vec":
-        word_vectors = KeyedVectors.load(args.model_file, mmap='r')
+        word_vectors = KeyedVectors.load(args.model_file)
     elif args.model_type == "fasttext_original":
         #loads fasttext.cc pretrained .vec file
         word_vectors = KeyedVectors.load_word2vec_format(args.model_file, binary=False)
     elif args.model_type == "fasttext_gensim":
         #loads gensim FastText generated .wordvectors file
-        word_vectors = KeyedVectors.load(args.model_file, mmap='r')
+        word_vectors = KeyedVectors.load(args.model_file)
     elif args.model_type == "ssg" or args.model_type == "ngram2vec":
         word_vectors = KeyedVectors.load_word2vec_format(args.model_file, binary=False)
     else:
@@ -100,7 +100,8 @@ def AnalogyEval(file, word_vectors, method, top, dummy4unknown, verbose):
     #go through analogies file line by line and check the 4 word analogy evaluation
     with open(file, 'r', encoding='utf-8') as f:
         for line in f:
-            words = [x.lower() for x in line.split()] #get all 4 words from line
+            #words = [x.lower() for x in line.split()] #no need to lower them, if using a prebaked analogy file for this method
+            words = line.split() #get all 4 words from line
             if (":" in words): #if this line describes a new category, not 4 words of analogies
                 if section_name == "":
                     section_name = words[1]
@@ -108,6 +109,8 @@ def AnalogyEval(file, word_vectors, method, top, dummy4unknown, verbose):
                 else:
                     if analogies_in_category != 0:
                         sections[section_name] = (correct_in_category/analogies_in_category) * 100
+                    else:
+                        sections[section_name] = 0
                     correct_in_category = 0
                     analogies_in_category = 0
                     section_name = words[1]
@@ -117,7 +120,7 @@ def AnalogyEval(file, word_vectors, method, top, dummy4unknown, verbose):
             #check if all required words are in vocabulary - dummy4unknown
             if dummy4unknown:
                 skip_line = False
-                for n in range(0,2):
+                for n in range(4):
                     if word_vectors.has_index_for(words[n]) == False:
                         skip_line = True
                         break
@@ -148,6 +151,8 @@ def AnalogyEval(file, word_vectors, method, top, dummy4unknown, verbose):
                     #break
     if analogies_in_category != 0:
         sections[section_name] = (correct_in_category/analogies_in_category) * 100
+    else:
+        sections[section_name] = 0
     return (correct_answers/analogies_proccessed), sections
 
 if __name__ == '__main__':
