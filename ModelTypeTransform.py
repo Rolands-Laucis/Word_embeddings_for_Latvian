@@ -1,4 +1,6 @@
-#python ModelTypeTransform.py --input_file_type wordvectors --input_file ..\Models\Word2vec_model\word2vec_5_200_sg.wordvectors --output_file_type bin --output_file ..\Models\Word2vec_model\word2vec_5_200_sg.bin
+#this script transforms word embeddings between file formats. See CLI arguments list for available formats.
+
+#python ModelTypeTransform.py --input_file_type wordvectors --input_file ..\Models\FastText_model\fasttext_5_350_sg.wordvectors --output_file_type txt --output_file ..\Models\FastText_model\fasttext_5_350_sg.txt
 #python ModelTypeTransform.py --input_file_type vec --input_file ..\tf-morphotagger-master\embeddings\fasttext_baseline_300.vec --output_file_type wordvectors --output_file ..\Models\FastText_model\fasttext_baseline_300.wordvectors
 
 import argparse
@@ -18,13 +20,13 @@ def main():
 
     #load model of file type
     if args.input_file_type == "bin":
-        word_vectors = KeyedVectors.load_word2vec_format(args.input_file, binary=True)
+        word_vectors = KeyedVectors.load_word2vec_format(args.input_file, binary=True, encoding='utf-8')
     elif args.input_file_type == "txt":
         word_vectors = KeyedVectors.load_word2vec_format(args.input_file, binary=False, encoding='utf-8')
     elif args.input_file_type == "wordvectors":
         word_vectors = KeyedVectors.load(args.input_file)
     elif args.input_file_type == "vec": #works for original fasttext vec and bin pretrained.
-        word_vectors = KeyedVectors.load_word2vec_format(args.model_file, binary=False)
+        word_vectors = KeyedVectors.load_word2vec_format(args.model_file, binary=False, encoding='utf-8')
     elif args.input_file_type == "model":
         word_vectors = Word2Vec.load(args.input_file).wv
     else:

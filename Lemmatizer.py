@@ -24,11 +24,11 @@ error = ProcessingError()
 #pipeline.set_immediate(True)
 
 #open and ready taget output file
-done_txt = open(r"../Cleaned_Corpora/combined_clean_lemmatized_corpus.txt", "w", encoding="utf-8")
+done_txt = open(r"../Cleaned_Corpora/combined_clean_corpus_lem.txt", "w", encoding="utf-8")
 done_txt.write("")
 done_txt.close()
 print("Cleared file")
-done_txt = open(r"../Cleaned_Corpora/combined_clean_lemmatized_corpus.txt", "a", encoding="utf-8")
+done_txt = open(r"../Cleaned_Corpora/combined_clean_corpus_lem.txt", "a", encoding="utf-8")
 
 #iterate over corpus lines and save lemmas in output file
 with open('../Cleaned_Corpora/combined_clean_corpus.txt', 'r', encoding='utf-8') as f:

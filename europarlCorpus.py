@@ -3,22 +3,22 @@
 
 #python europarlCorpus.py
 
-from regex_rules import RE_replacements
+from regex_rules import *
 import re
 
 i = 0
 cleaned_text_string = ""
 
-done_txt = open(r"..\cleaned_europarl_lv.txt", "w")
+done_txt = open(r"..\Cleaned_Corpora\cleaned_europarl_lv.txt", "w")
 done_txt.write("")
 done_txt.close()
 print("Cleared file")
 
-done_txt = open(r"..\cleaned_europarl_lv.txt", "a", encoding="utf-8")
+done_txt = open(r"..\Cleaned_Corpora\cleaned_europarl_lv.txt", "a", encoding="utf-8")
 
 print("starting clean")
 
-with open(r"..\europarl-v7-lv.txt", "r", encoding="utf-8") as f:
+with open(r"..\Corpora\europarl-v7-lv.txt", "r", encoding="utf-8") as f:
     for line in f:
         i += 1
 
@@ -27,7 +27,7 @@ with open(r"..\europarl-v7-lv.txt", "r", encoding="utf-8") as f:
         #gets rid of uppercase abreviations
 
         line = line.lower()
-        for old, new in RE_replacements:
+        for old, new in RE_replacements_new:
             line = re.sub(old, new, line)
 
         done_txt.write(line)

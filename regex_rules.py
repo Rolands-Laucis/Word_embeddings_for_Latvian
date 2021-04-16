@@ -1,3 +1,11 @@
+RE_replacements_new = [
+    (r'\(.{1,100}\)', ' '), #replace any text in parenthesis () including them as well with empty
+    (r'(\d)([,\.])(\s)', r'\1 \2\3'),
+    (r'([aābcčdeēfgģhiījkķlļmnņoprsštuūvzž])([,\.])(\s)', r'\1 \2\3'),
+    (r'[^aābcčdeēfgģhiījkķlļmnņoprsštuūvzž\.,0123456789\r\n\s]', ' '),
+    (r'\s\s+', ' ') #replace a string of 2 or more spaces with space
+]
+
 RE_replacements = [
     #(r'[-—\[\]\(\)=,;’‘\'\"]', ' '), #replace those symbols with space
     (r'\(.+\)', ''), #replace any text in parenthesis () including them as well with empty

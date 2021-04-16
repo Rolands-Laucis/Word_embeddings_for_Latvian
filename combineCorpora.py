@@ -3,14 +3,14 @@
 #python combineCorpora.py
 
 i = 0
-text_paths = [r'..\cleaned_lvwiki.txt', r'..\cleaned_europarl_lv.txt']
+text_paths = [r'..\Cleaned_Corpora\cleaned_lvwiki.txt', r'..\Cleaned_Corpora\cleaned_europarl_lv.txt']
 
-done_txt = open(r"..\combined_clean_corpus.txt", "w")
+done_txt = open(r"..\Cleaned_Corpora\combined_clean_corpus.txt", "w")
 done_txt.write("")
 done_txt.close()
 print("Cleared file")
 
-done_txt = open(r"..\combined_clean_corpus.txt", "a", encoding="utf-8")
+done_txt = open(r"..\Cleaned_Corpora\combined_clean_corpus.txt", "a", encoding="utf-8")
 
 print("starting clean")
 
