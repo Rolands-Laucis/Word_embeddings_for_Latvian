@@ -14,7 +14,7 @@ i converted all 3 (train, dev, test) .conllu files this way from https://github.
 python -m spacy convert lv_lvtb-ud-test.conllu .\ --converter conllu
 
 i also converted https://github.com/LUMII-AILab/FullStack/tree/master/NamedEntities conll2003 NER files to a single .spacy file for use in training the NER model
-python -m spacy convert ../../datasets/NER/data/ .\ --converter conll
+python -m spacy convert ..\datasets\NER\data\ .\ --converter ner -n 10
 
 To insert my word embeddings into spaCy, covert them to .spacy format. Embeddings need to be .txt with the first line speficying stats about vectors:
 python -m spacy init vectors lv ../../Models/Word2vec_Model/word2vec_5_350_sg.txt ../../Models/Spacy_tagger/word2vec_5_350_vectors --name lv-word2vec-5-350

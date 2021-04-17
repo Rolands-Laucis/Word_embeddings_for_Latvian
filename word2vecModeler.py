@@ -4,8 +4,10 @@
 
 import argparse
 from gensim.models import Word2Vec
+import time
 
 def main():
+    start = time.time()
     #CLI arguments
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("--corpus_file", type=str, required=True, help="Path to the corpus .txt file.")
@@ -30,7 +32,7 @@ def main():
     print('Starting %s training on %s' % (args.method, args.corpus_file))
     model = Word2Vec(corpus_file=args.corpus_file, vector_size=args.vector_size, window=args.window, workers=2, sg=method, min_count=args.min_count)
     model.wv.save(args.output_file)
-    print('Done trainig word2vec!')
+    print('Done trainig word2vec in %.2f min!' % ((time.time()-start)/60))
 
 if __name__ == '__main__':
     main()

@@ -6,8 +6,10 @@
 
 import argparse
 from gensim.models import Word2Vec, KeyedVectors
+import time
 
 def main():
+    start = time.time()
     #CLI argument handling
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("--model_type", type=str, required=True, help="[word2vec|fasttext_original|fasttext_gensim|ngram2vec|ssg]")
@@ -15,7 +17,7 @@ def main():
     parser.add_argument("--dataset_file", type=str, required=True, help="Path to the dataset txt file.")
     parser.add_argument("--eval_method", type=str, required=True, help="[gensim|3cosmul|3cosadd]")
     parser.add_argument("--topn", type=int, default=1, help="Answer accepted, if in topn results from similarity check. Default 1.")
-    parser.add_argument("--dummy4unknown", type=bool, default=False, help="Should the analogy line be skipped, if not all words in vocabulary? Default False.")
+    parser.add_argument("--dummy4unknown", type=bool, default=True, help="Should the analogy line be skipped, if not all words in vocabulary? Default True.")
     parser.add_argument("--verbose", type=bool, default=False, help="Should the program give status updates? Default False.")
     parser.add_argument("--gen_output", type=bool, default=True, help="Should the output file with score and incorrect guesses be generated. Default True.")
     parser.add_argument("--output_file", type=str, default=r'../datasets/results.txt', help="Path to the output txt file.")
@@ -83,7 +85,7 @@ def main():
                         output.write('\n')
         output.close()
     
-    print("Dataset evaluated with score: %1.6f" % score)
+    print("Dataset evaluated with score: %1.6f in %.2f min" % (score, ((time.time()-start)/60)))
     #print("Dataset evaluated!")
 
 
@@ -100,8 +102,8 @@ def AnalogyEval(file, word_vectors, method, top, dummy4unknown, verbose):
     #go through analogies file line by line and check the 4 word analogy evaluation
     with open(file, 'r', encoding='utf-8') as f:
         for line in f:
-            #words = [x.lower() for x in line.split()] #no need to lower them, if using a prebaked analogy file for this method
-            words = line.split() #get all 4 words from line
+            words = [x.lower() for x in line.split()] #no need to lower them, if using a prebaked analogy file for this method
+            #words = line.split() #get all 4 words from line
             if (":" in words): #if this line describes a new category, not 4 words of analogies
                 if section_name == "":
                     section_name = words[1]

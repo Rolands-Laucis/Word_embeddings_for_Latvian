@@ -4,8 +4,10 @@
 
 import argparse
 from gensim.models import FastText
+import time
 
 def main():
+    start = time.time()
     #CLI arguments
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("--corpus_file", type=str, required=True, help="Path to the corpus .txt file.")
@@ -34,7 +36,7 @@ def main():
     #train
     model.train(corpus_file=args.corpus_file, total_words=model.corpus_total_words, epochs=5)
     model.wv.save(args.output_file)
-    print ("Done training fasttext!")
+    print ("Done training fasttext in %.2f min" % ((time.time()-start)/60))
 
 if __name__ == '__main__':
     main()
