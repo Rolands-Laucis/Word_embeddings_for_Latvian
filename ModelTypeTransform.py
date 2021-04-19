@@ -1,7 +1,8 @@
 #this script transforms word embeddings between file formats. See CLI arguments list for available formats.
 
-#python ModelTypeTransform.py --input_file_type wordvectors --input_file ..\Models\FastText_model\fasttext_5_350_sg.wordvectors --output_file_type txt --output_file ..\Models\FastText_model\fasttext_5_350_sg.txt
+#python ModelTypeTransform.py --input_file_type wordvectors --input_file ..\Models\Word2vec_model\word2vec_5_200_sg.wordvectors --output_file_type txt --output_file ..\Models\Word2vec_model\word2vec_5_200_sg.txt
 #python ModelTypeTransform.py --input_file_type vec --input_file ..\tf-morphotagger-master\embeddings\fasttext_baseline_300.vec --output_file_type wordvectors --output_file ..\Models\FastText_model\fasttext_baseline_300.wordvectors
+#python ModelTypeTransform.py --input_file_type vec --input_file ..\ngram2vec-master\outputs\combined_clean_corpus\ngram_ngram\sgns\ng2v_5_200_sg.output --output_file_type txt --output_file ..\Models\Ngram2vec_model\ngram2vec_5_200_sg.txt
 
 import argparse
 #import fasttext
