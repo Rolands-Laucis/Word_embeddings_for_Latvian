@@ -1,5 +1,6 @@
 #this script prepares an analogy.txt file per embedding method that only contains analogies, where every word is in that methods models vocabullary.
-#basically this speeds up the evaluations because the dummy4unknown check is prebaked with this.
+#basically this speeds up the evaluations because the dummy4unknown check is prebaked with this. EDIT: actually the speed impact from doing this is ineffectively small.
+#But this script is also used to just get different counts of the analogies file.
 
 #python analogyPrep.py --model_type word2vec --model_file ../Models/Word2vec_model/word2vec_5_200_sg.wordvectors --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/lv-analogies-word2vec.txt
 #python analogyPrep.py --model_type fasttext --model_file ../Models/FastText_model/fasttext_5_200_sg.wordvectors --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/lv-analogies-fasttext.txt
@@ -9,7 +10,7 @@
 #python analogyPrep.py --model_type word2vec --model_file ../Models/Word2vec_model/word2vec_5_200_sg_lem.wordvectors --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/lv-analogies-word2vec_lem.txt
 #python analogyPrep.py --model_type fasttext --model_file ../Models/FastText_model/fasttext_5_200_sg_lem.wordvectors --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/lv-analogies-fasttext_lem.txt
 #python analogyPrep.py --model_type ssg --model_file ../Models/SSG_model/ssg_5_200_sg_lem.txt --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/lv-analogies-ssg_lem.txt
-#python analogyPrep.py --model_type ngram2vec --model_file ../ngram2vec-master/outputs/combined_clean_corpus/ngram_ngram/sgns/ng2v_5_200_sg_lem.output --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/lv-analogies-ngram2vec_lem.txt
+#python analogyPrep.py --model_type ngram2vec --model_file ../ngram2vec-master/outputs/combined_clean_corpus_lem/ngram_ngram/sgns/ng2v_5_200_sg.output --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/lv-analogies-ngram2vec_lem.txt
 
 import argparse
 from gensim.models import Word2Vec, KeyedVectors
@@ -51,7 +52,7 @@ def main():
         for line in f:
             words = [x.lower() for x in line.split()] #get all 4 words from line
             if (":" in words):
-                output.write(" ".join(words) + "\n")
+                #output.write(" ".join(words) + "\n")
                 continue
 
             skip_line = False
