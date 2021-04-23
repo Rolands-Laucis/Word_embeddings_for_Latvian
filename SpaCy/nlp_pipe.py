@@ -4,12 +4,12 @@
 
 import spacy
 
-nlp = spacy.load("../../Models/Spacy_tagger/fasttext_5_200_pos/model-best/")
+nlp = spacy.load("../../Models/Spacy_tagger/ssg_5_200_sg_ner/model-best/")
 
 #print(nlp.pipeline)
-doc = nlp("astronomija uzbūvi izvietojumu kustību un attīstību.")
+doc = nlp("\"Šeit ir Latvija,\" sacīja deputāts, akcentējot, ka latviešu valoda \"bija, ir un būs vienīgā valsts valoda\".")
 
 #print("Word | UPOS | TAG")
 for token in doc:
-    #print(token.text, token.pos)
-    print(token.text, token.pos_, token.tag_, token.morph)
+    print(token.text, token.ent_type_, token.ent_iob_)
+    #print(token.text, token.pos_, token.tag_, token.morph)
