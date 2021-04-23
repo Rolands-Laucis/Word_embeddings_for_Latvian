@@ -43,9 +43,19 @@ def ProcessFiles(paths, f_type):
                     else:
                         out_line = ''
                         if f_type == 'gold':
-                            out_line = " ".join([tokens[0],"NOUN", tokens[8]])
+                            #so someone else before me has made a mistake in creating these files. There is supposed to be 1 word token per line. 
+                            #I found places where there are 2 words in a token per line. 
+                            #This took me 2.5 hours of frustration.
+                            #.gold and .conll2003 NER and IOB are not my favorite file formats.
+                            #
+                            #I ignore lines, where the first token (word) is actually 2 words seperated by a space.
+                            if ' ' in tokens[0]:
+                                continue
+                            out_line = " ".join([tokens[0], tokens[8]]) #POS is tokens[1]
                         elif f_type == 'conll2003':
-                            out_line = " ".join([tokens[1],tokens[3], tokens[6]]) + "\n"
+                            if ' ' in tokens[1]:
+                                continue
+                            out_line = " ".join([tokens[1], tokens[6]]) + "\n" #POS is tokens[3]
                         #print(out_line)
                         output.write(out_line)
 
