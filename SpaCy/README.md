@@ -35,7 +35,7 @@ To insert my word embeddings into spaCy, covert them to .spacy format. Embedding
 python -m spacy init vectors lv ../../Models/SSG_model/ssg_5_100_sg.txt ../../Models/Spacy_tagger/ssg_5_100_sg_vectors --name lv-ssg-5-100
 python -m spacy init vectors lv ..\\..\ngram2vec-master\outputs\combined_clean_corpus\ngram_ngram\sgns\ng2v_5_200_sg.output ../../Models/Spacy_tagger/ng2v_5_200_sg_vectors --name lv-ng2v-5-200
 
-Then in the config-pos.cfg under [Initialize] set vectors = ^ that path where it output without ""
+Then in the config-pos.cfg under [Initialize] set vectors = ^ that path where it output without "" OR add a CLI argument --paths.vectors with path to the created vectors folder
 
 under [training] set max_epochs = 12 for consistent results. This takes about 3h. Otherwise it says 0 and means unlimited epochs, bet eventually stops training past 100 epochs.
 
