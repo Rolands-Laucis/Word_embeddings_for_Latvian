@@ -84,6 +84,9 @@ output = NewOutputFile(combined_iob_file_path)
 with open(output_conll2003_path, mode="r", encoding='utf8') as f:
     for line in f:
         output.write(line)
+
+#excluding the TildeNER set because i have a lot of problems with its format. Very confusing. 
+#And from all the tests it looks like models get ~5% F-score on NER when it is included. Bad files. Lots of mistakes in them as well.
 #with open(output_gold_path, mode="r", encoding='utf8') as f:
 #    for line in f:
 #        output.write(line)

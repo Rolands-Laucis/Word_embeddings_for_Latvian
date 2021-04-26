@@ -12,6 +12,8 @@
 #python analogyPrep.py --model_type ssg --model_file ../Models/SSG_model/ssg_5_200_sg_lem.txt --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/lv-analogies-ssg_lem.txt
 #python analogyPrep.py --model_type ngram2vec --model_file ../ngram2vec-master/outputs/combined_clean_corpus_lem/ngram_ngram/sgns/ng2v_5_200_sg.output --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/lv-analogies-ngram2vec_lem.txt
 
+#python analogyPrep.py --model_type fasttext_original --model_file ../Models/FastText_model/fasttext_baseline_300.vec --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/lv-analogies-fasttext-baseline.txt
+
 import argparse
 from gensim.models import Word2Vec, KeyedVectors
 
@@ -50,7 +52,10 @@ def main():
 
     with open(args.dataset_file, 'r', encoding='utf-8') as f:
         for line in f:
-            words = [x.lower() for x in line.split()] #get all 4 words from line
+            if args.model_type == "fasttext_original":# because fasttext baseline doesnt do case folding for its embeddings, i dont case fold analogy words either
+                words = line.split()
+            else:
+                words = [x.lower() for x in line.split()] #get all 4 words from line
             if (":" in words):
                 #output.write(" ".join(words) + "\n")
                 continue

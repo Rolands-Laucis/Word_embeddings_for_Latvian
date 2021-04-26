@@ -54,7 +54,7 @@ def main():
     if args.eval_method == "gensim":
         score, sections = word_vectors.evaluate_word_analogies(args.dataset_file, case_insensitive=True, dummy4unknown=args.dummy4unknown)
     elif args.eval_method == "3cosmul" or args.eval_method == "3cosadd":
-        score, sections = AnalogyEval(args.dataset_file, word_vectors, args.eval_method, args.topn, args.dummy4unknown, args.verbose)
+        score, sections = AnalogyEval(args.dataset_file, word_vectors, args.eval_method, args.topn, args.dummy4unknown, args.verbose, args.model_type)
     else:
         print("eval_method not supported!")
         return
@@ -90,7 +90,7 @@ def main():
 
 
 #evaluates a analogy dataset .txt file and returns a score (0-1) of how many were answered correctly and scores per section
-def AnalogyEval(file, word_vectors, method, top, dummy4unknown, verbose):
+def AnalogyEval(file, word_vectors, method, top, dummy4unknown, verbose, model_type):
     analogies_proccessed = 0
     correct_answers = 0
     correct_in_category = 0
@@ -102,9 +102,14 @@ def AnalogyEval(file, word_vectors, method, top, dummy4unknown, verbose):
     #go through analogies file line by line and check the 4 word analogy evaluation
     with open(file, 'r', encoding='utf-8') as f:
         for line in f:
-            words = [x.lower() for x in line.split()] #no need to lower them, if using a prebaked analogy file for this method
-            #words = line.split() #get all 4 words from line
-            if (":" in words): #if this line describes a new category, not 4 words of analogies
+            #get all 4 words from line
+            if model_type == "fasttext_original":# because fasttext baseline doesnt do case folding for its embeddings, i dont case fold analogy words either
+                words = line.split()
+            else:
+                words = [x.lower() for x in line.split()] #btw no need to lower them, if using a prebaked analogy file for this method. But usually i dont use the prebaked
+
+            #if this line describes a new category, not 4 words of analogies
+            if (":" in words):
                 if section_name == "":
                     section_name = words[1]
                     #section_name = " ".join(words)
@@ -132,6 +137,7 @@ def AnalogyEval(file, word_vectors, method, top, dummy4unknown, verbose):
             #get answer or answers
             answer = None
 
+            #choose evaluation method that was passed in
             if method == "3cosmul":
                 answer = word_vectors.most_similar_cosmul(positive=[words[1],words[2]], negative=[words[0]], topn=top)
             elif method == "3cosadd":
