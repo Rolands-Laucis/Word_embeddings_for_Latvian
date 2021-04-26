@@ -16,11 +16,14 @@ output_gold_path = "..\..\datasets\\NER\processed\\TildeNER.iob"
 combined_iob_file_path = "..\..\datasets\\NER\processed\\ner-combined.iob"
 output_file_paths = ['..\..\datasets\\NER\\processed\\ner-combined-train.iob', '..\..\datasets\\NER\\processed\\ner-combined-dev.iob', '..\..\datasets\\NER\\processed\\ner-combined-test.iob']
 
+#pos_translation = {'?':'X','s':'X','p':'X','V':'VERB','Q':'NUM','P':'ADP','O':'PRON','N':'NOUN','I':'INTJ','D':'X','C':'CCONJ','B':'ADV','A':'ADJ', '-':'X'}
+#pos_translation = {'SENT':'X','-':'X','Z':'PUNCT','X':'X','W':'X','V':'VERB','I':'INTJ','S':'SCONJ','T':'PART','D':'ADV','P':'PROPN','N':'NOUN','G':'PART','A':'ADJ','R':'ADP','F':'X','B':'DET','C':'NUM','H':'CCONJ',}
+
 def NewOutputFile(path, final=False):
     #clear output file for new output data
     output_f = open(path, "w", encoding='utf-8')
     if final:
-        output_f.write("-DOCSTART- -X- O O\n\n")
+        output_f.write("-DOCSTART- -X- O O\n")
     else:
         output_f.write("")
     output_f.close()
@@ -51,7 +54,7 @@ def ProcessFiles(paths, f_type):
                             #I ignore lines, where the first token (word) is actually 2 words seperated by a space.
                             if ' ' in tokens[0]:
                                 continue
-                            out_line = " ".join([tokens[0], tokens[8]]) #POS is tokens[1]
+                            out_line = " ".join([tokens[0], tokens[8]]) #POS is tokens[1] pos_translation[tokens[1]]
                         elif f_type == 'conll2003':
                             if ' ' in tokens[1]:
                                 continue
@@ -81,9 +84,9 @@ output = NewOutputFile(combined_iob_file_path)
 with open(output_conll2003_path, mode="r", encoding='utf8') as f:
     for line in f:
         output.write(line)
-with open(output_gold_path, mode="r", encoding='utf8') as f:
-    for line in f:
-        output.write(line)
+#with open(output_gold_path, mode="r", encoding='utf8') as f:
+#    for line in f:
+#        output.write(line)
 output.close()
 
 #split the .iob long file into train, dev, test files

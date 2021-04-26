@@ -51,5 +51,7 @@ python nlp_pipe.py
 
 Or use spaCy evaluate CLI command on the test data https://spacy.io/api/cli#evaluate:
 python -m spacy evaluate ..\\..\Models\Spacy_tagger\ng2v_5_200_sg_pos\model-best ./lv_lvtb-ud-test.spacy --output ../../datasets/POS/ng2v_5_200_sg_pos.json --gold-preproc
-python -m spacy evaluate ..\..\Models\Spacy_tagger\ssg_5_200_sg_ner\model-best ..\..\datasets\NER\processed\NER_concatinated-test.spacy --output ../../datasets/POS/ssg_5_200_sg_ner.json --gold-preproc
+python -m spacy evaluate ..\..\Models\Spacy_tagger\word2vec_5_200_sg-ner\model-best ..\..\datasets\NER\processed\ner-combined-test.spacy --output ../../datasets/NER/word2vec_5_200_sg-ner.json --gold-preproc
 
+Debug spaCy config, if results are weird or some other issues:
+python -m spacy debug data ./config-ner.cfg --paths.train ..\..\datasets\NER\processed\ner-combined-train.spacy --paths.dev ..\..\datasets\NER\processed\ner-combined-dev.spacy --paths.vectors C:\Users\Experimenter\Desktop\BD_Code\Models\Spacy_tagger\ssg_5_200_sg_vectors -V

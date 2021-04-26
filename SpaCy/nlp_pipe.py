@@ -4,7 +4,7 @@
 
 import spacy
 
-nlp = spacy.load("../../Models/Spacy_tagger/ssg_5_200_sg_ner/model-best/")
+nlp = spacy.load("../../Models/Spacy_tagger/word2vec_5_200_sg-ner/model-best/")
 
 #print(nlp.pipeline)
 doc = nlp("\"Šeit ir Latvija,\" sacīja deputāts, akcentējot, ka latviešu valoda \"bija, ir un būs vienīgā valsts valoda\".")

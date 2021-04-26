@@ -26,7 +26,7 @@ def main():
         word_vectors = KeyedVectors.load_word2vec_format(args.input_file, binary=False, encoding='utf-8')
     elif args.input_file_type == "wordvectors":
         word_vectors = KeyedVectors.load(args.input_file)
-    elif args.input_file_type == "vec": #works for original fasttext vec and bin pretrained.
+    elif args.input_file_type == "vec": #works for original fasttext vec and bin pretrained. Also for ngram2vec .output files
         word_vectors = KeyedVectors.load_word2vec_format(args.model_file, binary=False, encoding='utf-8')
     elif args.input_file_type == "model":
         word_vectors = Word2Vec.load(args.input_file).wv
