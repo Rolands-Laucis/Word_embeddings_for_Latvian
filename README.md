@@ -11,6 +11,8 @@ Each python script contains a header line explaining its purpose and CLI use exa
 There are also automation .bat files for running model training and evaluation.
 
 The work is done using the python language.
+Used libraries and other dependencies are listed in ./misc/dependencies.json
+
 FastText and Word2vec embeddings are trained with the python lib "Gensim".
 Ngram2vec and Structure Skip-Gram embeddings are trained with a tool from their original github repositories.
 
