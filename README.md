@@ -14,4 +14,4 @@ The work is done using the python language.
 FastText and Word2vec embeddings are trained with the python lib "Gensim".
 Ngram2vec and Structure Skip-Gram embeddings are trained with a tool from their original github repositories.
 
-The SpaCy directory contains all files and instructions for building and evaluating POS and NER models using custom latvian word embeddings.
+The SpaCy directory contains all source code files and instructions for building and evaluating POS and NER models using custom latvian word embeddings.
