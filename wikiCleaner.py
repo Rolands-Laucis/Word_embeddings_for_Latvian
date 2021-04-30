@@ -6,16 +6,11 @@
 from wiki_dump_reader import Cleaner, iterate
 import re
 from regex_rules import *
-#import importlib
-#import os
-#path_to_lvwiki = os.path.join('C:', os.sep, 'meshes', 'as')
-
-#importlib.import_module('regex_rules')
 
 i = 0
 cleaned_text_string = ""
 
-f = open(r"..\Cleaned_Corpora\cleaned_lvwiki.txt", "w")
+f = open(r"..\Cleaned_Corpora\cleaned_lvwiki.txt", "w", encoding="utf-8")
 f.write("")
 f.close()
 print("Cleared file")
@@ -46,7 +41,6 @@ for title, text in iterate(r"..\Corpora\lvwiki-latest-pages-articles.xml"):
         #write it to file and reset
         f.write(cleaned_text_string)
         cleaned_text_string = ""
-        #print(cleaned_text)
         print("Gone through %dk iterations and appended to file" % i)
         #if i >= 10000:
         #    break

@@ -4,12 +4,21 @@
 
 import spacy
 
-nlp = spacy.load("../../Models/Spacy_tagger/word2vec_5_200_sg-ner/model-best/")
+#           do NER and morph analisys
+nlp = spacy.load("../../Models/Spacy_tagger/fasttext_5_200_sg-ner/model-best/")
 
 #print(nlp.pipeline)
 doc = nlp("\"Šeit ir Latvija,\" sacīja deputāts, akcentējot, ka latviešu valoda \"bija, ir un būs vienīgā valsts valoda\".")
 
-#print("Word | UPOS | TAG")
 for token in doc:
     print(token.text, token.ent_type_, token.ent_iob_)
-    #print(token.text, token.pos_, token.tag_, token.morph)
+
+
+#           do POS and morph analisys
+nlp = spacy.load("../../Models/Spacy_tagger/fasttext_5_200_sg-pos/model-best/")
+
+doc = nlp("Sveiki, šī ir jēdzientelpu apmācības un izmantošanas pamācība.")
+
+print("Word | UPOS | TAG")
+for token in doc:
+    print(token.text, token.pos_, token.tag_, token.morph)
