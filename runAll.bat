@@ -1,4 +1,4 @@
-::runAll.bat
+::./runAll.bat
 @echo off
 
 ::echo training all models 5 100...

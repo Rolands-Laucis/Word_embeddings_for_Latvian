@@ -10,7 +10,7 @@
 #python analogyPrep.py --model_type word2vec --model_file ../Models/Word2vec_model/word2vec_5_200_sg_lem.wordvectors --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/lv-analogies-word2vec_lem.txt
 #python analogyPrep.py --model_type fasttext --model_file ../Models/FastText_model/fasttext_5_200_sg_lem.wordvectors --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/lv-analogies-fasttext_lem.txt
 #python analogyPrep.py --model_type ssg --model_file ../Models/SSG_model/ssg_5_200_sg_lem.txt --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/lv-analogies-ssg_lem.txt
-#python analogyPrep.py --model_type ngram2vec --model_file ../ngram2vec-master/outputs/combined_clean_corpus_lem/ngram_ngram/sgns/ng2v_5_200_sg.output --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/lv-analogies-ngram2vec_lem.txt
+#python analogyPrep.py --model_type ngram2vec --model_file ../ngram2vec-master/outputs/combined_clean_corpus_lem/ngram_ngram/sgns/ng2v_5_200_sg_lem.output --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/lv-analogies-ngram2vec_lem.txt
 
 #python analogyPrep.py --model_type fasttext_original --model_file ../Models/FastText_model/fasttext_baseline_300.vec --dataset_file ../datasets/lv-analogies.txt --output_file ../datasets/lv-analogies-fasttext-baseline.txt
 

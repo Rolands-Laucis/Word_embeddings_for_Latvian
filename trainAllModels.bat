@@ -1,4 +1,4 @@
-::./trainAllModels.bat 5 50
+::./trainAllModels.bat 5 100
 @echo off
 
 ::set up arguments
