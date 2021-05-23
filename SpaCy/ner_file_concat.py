@@ -59,7 +59,7 @@ def ProcessFiles(paths, f_type):
                         elif f_type == 'conll2003':
                             if ' ' in tokens[1]:
                                 continue
-                            out_line = " ".join([tokens[1], tokens[6]]) + "\n" #POS is tokens[3]
+                            out_line = " ".join([tokens[1], tokens[6]]) + "\n" #POS is tokens[3]; tokens[6] is BIOTAG1 which is the outter entity tag.
                         #print(out_line)
                         output.write(out_line)
 
